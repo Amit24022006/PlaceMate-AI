@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlaceMate AI – Dashboard</title>
+  <link rel="stylesheet" href="Dashboard.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar" id="sidebar">
+    <a href="#" class="sidebar-brand">
+      <span>Place<span class="brand-highlight">Mate</span> AI</span>
+    </a>
+
+    <ul class="sidebar-nav">
+      <li><a href="#" class="active" data-page="Dashboard">
+        <span class="nav-icon"></span> Dashboard
+      </a></li>
+      <li><a href="/Home/Resume/Resume.html" data-page="Resume Analyzer">
+        <span class="nav-icon"></span> Resume Analyzer
+      </a></li>
+      <li><a href="#" data-page="AI Mock Interview">
+        <span class="nav-icon"></span> AI Mock Interview
+      </a></li>
+      <li><a href="/Home/Test/Test.html" data-page="Tests">
+        <span class="nav-icon"></span> Tests
+      </a></li>
+      <li><a href="#" data-page="Live Sessions">
+        <span class="nav-icon"></span> Live Sessions
+      </a></li>
+       <li><a href="#" data-page="Live Sessions">
+        <span class="nav-icon"></span> Notification
+      </a></li>
+      <li><a href="#" data-page="Profile">
+        <span class="nav-icon"></span> Profile
+      </a></li>
+      <li><a href="#" data-page="Settings">
+        <span class="nav-icon"></span> Settings
+      </a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="user-avatar" id="sidebar-avatar">U</div>
+        <div class="user-info">
+          <strong id="sidebar-user-name">Guest</strong>
+          <span id="sidebar-user-email">Not logged in</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ====== MAIN ====== -->
+  <div class="main">
+
+<button class="chatbot-btn" id="chatbotBtn" title="AI Resume Assistant">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    </svg>
+  </button>
+
+  <!-- ========== CHATBOT PANEL ========== -->
+  <div class="chatbot-panel" id="chatbotPanel" style="display:none;">
+    <div class="chat-header">
+      <div class="chat-title">
+        <span>🤖</span>
+        <div>
+          <strong>Resume Assistant</strong>
+          <small>Ask anything about your resume</small>
+        </div>
+      </div>
+      <button class="chat-close" id="chatClose">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <div class="msg-bubble">Hi! I'm your AI Resume Assistant. Upload your resume and I'll help you improve it! 💼</div>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask about your resume…" />
+      <button class="chat-send" id="chatSend">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="topbar-btn hamburger" id="hamburger-btn" title="Menu">☰</button>
+        <div class="topbar-left">
+          <h2 id="welcome-name">Welcome back! </h2>
+          <p id="welcome-sub">Please log in to continue</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+       
+      </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+
+        <!-- Resume Score -->
+        <div class="stat-card">
+          <div class="stat-card-icon green">📄</div>
+          <div class="stat-card-body" style="flex:1;">
+            <h3>Resume Score</h3>
+            <div style="display:flex;align-items:baseline;gap:4px;">
+              <span class="big-num" id="stat-resume-score">0</span>
+              <span style="font-size:0.85rem;color:var(--muted);">/100</span>
+            </div>
+            <div class="sub good" id="resume-status">Upload your resume to start</div>
+            <div class="score-bar-wrap" style="margin-top:8px;">
+              <div class="score-bar">
+                <div class="score-bar-fill" id="score-bar-fill" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mock Interviews -->
+        <div class="stat-card">
+          <div class="stat-card-icon blue">🎥</div>
+          <div class="stat-card-body">
+            <h3>Mock Interviews</h3>
+            <div class="big-num" id="stat-mock">0</div>
+            <div class="sub muted">Completed</div>
+          </div>
+        </div>
+
+        <!-- Tests Attempted -->
+        <div class="stat-card">
+          <div class="stat-card-icon orange">🎯</div>
+          <div class="stat-card-body">
+            <h3>Tests Attempted</h3>
+            <div class="big-num" id="stat-tests">0</div>
+            <div class="sub muted">Tests Completed</div>
+          </div>
+        </div>
+
+        <!-- ATS Score -->
+        <div class="stat-card">
+          <div class="stat-card-icon purple">✅</div>
+          <div class="stat-card-body">
+            <h3>ATS Score</h3>
+            <div class="big-num" id="stat-ats">0</div>
+            <div class="sub muted">Job Match</div>
+          </div>
+        </div>
+
+      </div><!-- /stats-row -->
+
+      <!-- Two Column: Quick Access + Recent Activity -->
+      <div class="two-col">
+
+        <!-- Quick Access -->
+        <div class="section-card">
+          <div class="section-header">
+            <h3>Quick Access</h3>
+          </div>
+          <div class="quick-grid">
+
+            <a class="quick-card" href="#" onclick="handleQuickCard('resume');return false;">
+              <div class="quick-icon green">📄</div>
+              <strong>Resume Analyzer</strong>
+              <span>Check ATS Score</span>
+            </a>
+
+            <a class="quick-card" href="#" onclick="handleQuickCard('interview');return false;">
+              <div class="quick-icon blue">🎥</div>
+              <strong>AI Mock Interview</strong>
+              <span>Practice Now</span>
+            </a>
+
+            <a class="quick-card" href="#" onclick="handleQuickCard('test');return false;">
+              <div class="quick-icon orange">✏️</div>
+              <strong>Take a Test</strong>
+              <span>Techinal + Aptitude + More</span>
+            </a>
+
+            <a class="quick-card" href="#" onclick="joinSession('Live Expert Session');return false;">
+              <div class="quick-icon purple" style="background:#f0fdf4;">📡</div>
+              <strong>Live Session</strong>
+              <span>Join Now</span>
+            </a>
+
+            
+            <a class="quick-card" href="#" onclick="joinSession('Live Expert Session');return false;">
+              <div class="quick-icon purple" style="background:#f0fdf4;"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+</svg>
+</div>
+              <strong>AI Chatbox</strong>
+              <span>Chat Now</span>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="section-card">
+          <div class="section-header">
+            <h3>Recent Activity</h3>
+            <a href="#" class="view-all-link">View All →</a>
+          </div>
+          <div class="activity-list" id="activity-list">
+            <div class="empty-state" style="text-align:center;padding:24px 0;color:var(--muted);font-size:0.88rem;">No recent activity yet. Start practicing! 🚀</div>
+          </div>
+        </div>
+
+      </div><!-- /two-col -->
+
+      <!-- Live Sessions -->
+      <div class="live-section">
+        <div class="section-header">
+          <h3>📡 Live Sessions</h3>
+          <a href="#" class="view-all-link">View All →</a>
+        </div>
+        <div class="live-grid">
+
+          <div class="live-card">
+            <div class="live-badge live"><div class="dot"></div> LIVE NOW</div>
+            <h4>Interview Masterclass</h4>
+            <p>Crack top product interviews with live Q&A and real practice rounds.</p>
+            <div class="live-meta">
+              <span>👤 Rahul Sharma</span>
+              <span>👥 42 joined</span>
+            </div>
+            <button class="btn-join" onclick="joinSession('Interview Masterclass')">Join Now →</button>
+          </div>
+
+          <div class="live-card">
+            <div class="live-badge upcoming"><div class="dot"></div> Upcoming</div>
+            <h4>Resume Writing Workshop</h4>
+            <p>Build an ATS-friendly resume that gets you shortlisted in top companies.</p>
+            <div class="live-meta">
+              <span>🕐 Tomorrow 6 PM</span>
+              <span>👤 Priya Mehta</span>
+            </div>
+            <button class="btn-join outline" onclick="joinSession('Resume Writing Workshop')">Set Reminder →</button>
+          </div>
+
+          <div class="live-card">
+            <div class="live-badge recorded"><div class="dot"></div> Recorded</div>
+            <h4>Aptitude Crash Course</h4>
+            <p>Watch the recorded session to master quantitative &amp; verbal reasoning.</p>
+            <div class="live-meta">
+              <span>⏱ 1h 24m</span>
+              <span>👥 310 watched</span>
+            </div>
+            <button class="btn-join outline" onclick="handleQuickCard('session')">Watch Now →</button>
+          </div>
+
+        </div>
+      </div><!-- /live-section -->
+
+      <!-- Bottom Row: Resume Analyzer + Promo -->
+      <div class="bottom-row">
+
+        <!-- Resume Analyzer Card -->
+        <div class="section-card">
+          <div class="section-header">
+            <h3>Resume Analyzer</h3>
+            <span style="background:var(--green-lt);color:var(--green);font-size:0.78rem;font-weight:700;padding:4px 12px;border-radius:99px;">✅ Upload to start</span>
+          </div>
+          <div class="resume-inner">
+
+            <!-- Circle -->
+            <div class="resume-circle-wrap">
+              <div class="resume-circle">
+                <svg width="90" height="90" viewBox="0 0 90 90">
+                  <circle cx="45" cy="45" r="40" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+                  <circle class="progress-ring-fill" cx="45" cy="45" r="40" fill="none"
+                    stroke="#22c55e" stroke-width="8" stroke-linecap="round"
+                    style="stroke-dasharray:251.2;stroke-dashoffset:251.2;transition:stroke-dashoffset 1s ease;"/>
+                </svg>
+                <div class="score-text">
+                  <span class="num" id="resume-score-num">0</span>
+                  <span class="den">/100</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Checks -->
+            <div class="resume-checks">
+              <div class="check-item">
+                <div class="check-dot">
+                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6L5 9L10 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                ATS Score
+              </div>
+              <div class="check-item">
+                <div class="check-dot">
+                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6L5 9L10 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                Formatting
+              </div>
+              <div class="check-item">
+                <div class="check-dot">
+                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6L5 9L10 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                Skills Match
+              </div>
+              <div class="check-item">
+                <div class="check-dot">
+                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6L5 9L10 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                Keyword Usage
+              </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="resume-preview">
+              <div class="rp-name" id="rp-name">Your Name</div>
+              <div class="rp-line sm"></div>
+              <div class="rp-line md"></div>
+              <div class="rp-line green" style="width:0%" id="rp-bar1"></div>
+              <div class="rp-line green2" style="width:0%" id="rp-bar2"></div>
+              <div class="rp-line green3" style="width:0%" id="rp-bar3"></div>
+            </div>
+
+          </div>
+
+          <!-- Upload -->
+          <div style="margin-top:16px;">
+            <label for="resume-upload" class="btn-green" style="cursor:pointer;">
+              📤 Upload Resume
+            </label>
+            <input type="file" id="resume-upload" accept=".pdf,.doc,.docx" style="display:none;" onchange="handleResumeUpload(this)" />
+          </div>
+        </div>
+
+        <!-- Promo -->
+        <div class="promo-card">
+          <div>
+            <h2>Practice Smarter<br>Not Harder! 🚀</h2>
+            <p>Use PlaceMate AI tools to improve your skills and crack your dream job.</p>
+          </div>
+          <a href="#" class="btn-white" onclick="handleQuickCard('interview');return false;">
+            Start Practicing →
+          </a>
+        </div>
+
+      </div><!-- /bottom-row -->
+
+    </div><!-- /dashboard-content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ====== MODALS ====== -->
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal" style="position:relative;">
+    <button class="modal-close modal-close-btn" title="Close">✕</button>
+    <div style="font-size:2rem;margin-bottom:10px;">🎯</div>
+    <h2>Welcome to PlaceMate AI</h2>
+    <p class="sub">Log in to continue your preparation journey</p>
+    <form id="login-form">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="login-name" placeholder="e.g. Priya Sharma" required />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="login-email" placeholder="you@email.com" required />
+      </div>
+      <button type="submit" class="btn-modal-primary">Log In →</button>
+    </form>
+    <div class="modal-footer">
+      Don't have an account? <a id="switch-to-register">Create one</a>
+    </div>
+  </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal-overlay" id="register-modal">
+  <div class="modal" style="position:relative;">
+    <button class="modal-close modal-close-btn" title="Close">✕</button>
+    <div style="font-size:2rem;margin-bottom:10px;">🚀</div>
+    <h2>Create Account</h2>
+    <p class="sub">Join thousands preparing smarter with PlaceMate AI</p>
+    <form id="register-form">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="reg-name" placeholder="e.g. Amit Kumar" required />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="reg-email" placeholder="you@email.com" required />
+      </div>
+      <button type="submit" class="btn-modal-primary">Create Account →</button>
+    </form>
+    <div class="modal-footer">
+      Already have an account? <a id="switch-to-login">Log in</a>
+    </div>
+  </div>
+</div>
+
+<!-- Session Join Modal -->
+<div class="modal-overlay" id="session-modal">
+  <div class="modal" style="position:relative;">
+    <button class="modal-close modal-close-btn" title="Close">✕</button>
+    <div style="font-size:2rem;margin-bottom:10px;">📡</div>
+    <h2>Join Live Session</h2>
+    <p class="sub" id="session-title">Loading...</p>
+    <p style="font-size:0.88rem;color:var(--muted);margin-bottom:22px;">You'll be connected to the live session. Make sure your mic and camera are ready.</p>
+    <button class="btn-modal-primary" id="confirm-join-btn">Join Now 🎓</button>
+    <div class="modal-footer" style="margin-top:12px;">
+      <a onclick="closeModal('session-modal')">Cancel</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ====== TOAST ====== -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span class="toast-msg">Done!</span>
+</div>
+
+
+
+<script src="Dashboard.js"></script>
+
+</body>
+</html>

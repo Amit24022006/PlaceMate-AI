@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Session</title>
+
+    <link rel="stylesheet" href="LiveSession.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="page-header">
+
+        <div class="header-icon">
+            <i class="fa-solid fa-video"></i>
+        </div>
+
+        <div class="header-content">
+            <h1>Live Session</h1>
+            <p>
+                Join live sessions, access meeting links and track your upcoming sessions.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Upcoming Session -->
+
+    <section class="upcoming-session">
+
+        <div class="upcoming-left">
+
+            <div class="calendar-icon">
+                <i class="fa-regular fa-calendar"></i>
+            </div>
+
+            <h4>UPCOMING LIVE SESSION</h4>
+
+            <div class="countdown" id="countdown">
+                Starts In
+            </div>
+
+        </div>
+
+        <div class="upcoming-center">
+
+            <div class="session-heading">
+                <h2>Live Session</h2>
+
+                <span class="badge">
+                    Category
+                </span>
+            </div>
+
+            <div class="session-info">
+
+                <p>
+                    <i class="fa-regular fa-calendar"></i>
+                    Date
+                </p>
+
+                <p>
+                    <i class="fa-regular fa-clock"></i>
+                    Time
+                </p>
+
+                <p>
+                    <i class="fa-regular fa-user"></i>
+                    Instructor
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="upcoming-right">
+
+            <label>Meeting Link</label>
+
+            <div class="meeting-box">
+
+                <span id="meetingLink">
+                    Meeting Link
+                </span>
+
+                <button class="copy-btn" onclick="copyMeetingLink()">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+
+            </div>
+
+            <button class="join-btn" onclick="joinSession()">
+                <i class="fa-solid fa-video"></i>
+                Join Live Session
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- Bottom Grid -->
+
+    <div class="content-grid">
+
+        <!-- Previous Sessions -->
+
+        <section class="card">
+
+            <h2 class="card-title">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                Previous Sessions
+            </h2>
+
+            <div id="previousSessions">
+
+                <div class="session-card">
+
+                    <div class="session-left">
+
+                        <div class="tech-icon">
+                            JS
+                        </div>
+
+                        <div>
+                            <h4>Session</h4>
+
+                            <p>Date</p>
+
+                            <p>Time</p>
+                        </div>
+
+                    </div>
+
+                    <div class="session-right">
+
+                        <span>Meeting Link</span>
+
+                        <button class="copy-btn">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="session-card">
+
+                    <div class="session-left">
+
+                        <div class="tech-icon">
+                            PY
+                        </div>
+
+                        <div>
+                            <h4>Session</h4>
+
+                            <p>Date</p>
+
+                            <p>Time</p>
+                        </div>
+
+                    </div>
+
+                    <div class="session-right">
+
+                        <span>Meeting Link</span>
+
+                        <button class="copy-btn">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="session-card">
+
+                    <div class="session-left">
+
+                        <div class="tech-icon">
+                            RE
+                        </div>
+
+                        <div>
+                            <h4>Session</h4>
+
+                            <p>Date</p>
+
+                            <p>Time</p>
+                        </div>
+
+                    </div>
+
+                    <div class="session-right">
+
+                        <span>Meeting Link</span>
+
+                        <button class="copy-btn">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="view-btn">
+                View All Previous Sessions
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </section>
+
+        <!-- Next Meeting -->
+
+        <section class="card">
+
+            <h2 class="card-title">
+                <i class="fa-regular fa-calendar"></i>
+                Next Meeting
+            </h2>
+
+            <div class="next-meeting">
+
+                <div class="next-top">
+
+                    <div class="calendar-icon small">
+                        <i class="fa-regular fa-calendar"></i>
+                    </div>
+
+                    <div>
+
+                        <h4>NEXT MEETING</h4>
+
+                        <div class="countdown">
+                            Starts In
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="meeting-details">
+
+                    <div class="session-heading">
+
+                        <h3>Live Session</h3>
+
+                        <span class="badge">
+                            Category
+                        </span>
+
+                    </div>
+
+                    <p>
+                        <i class="fa-regular fa-calendar"></i>
+                        Date
+                    </p>
+
+                    <p>
+                        <i class="fa-regular fa-clock"></i>
+                        Time
+                    </p>
+
+                    <p>
+                        <i class="fa-regular fa-user"></i>
+                        Instructor
+                    </p>
+
+                </div>
+
+                <label>Meeting Link</label>
+
+                <div class="meeting-box">
+
+                    <span>
+                        Meeting Link
+                    </span>
+
+                    <button class="copy-btn">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+
+                </div>
+
+                <button class="join-btn">
+                    <i class="fa-solid fa-video"></i>
+                    Join Live Session
+                </button>
+
+            </div>
+
+            <button class="view-btn">
+                View All Upcoming Sessions
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </section>
+
+    </div>
+
+</div>
+
+<script src="LiveSession.js"></script>
+
+</body>
+</html>

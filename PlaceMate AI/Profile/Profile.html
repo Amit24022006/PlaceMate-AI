@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlaceMate AI – My Profile</title>
+  <link rel="stylesheet" href="profile.css" />
+ 
+</head>
+<body>
+
+<!-- TOP HEADER -->
+<header class="top-bar">
+  <a href="index.html" class="top-brand">
+    <span></span> PlaceMate <span class="hl">AI</span>
+  </a>
+  <div class="top-right">
+    
+    <div class="avatar-sm" id="topAvatar">?</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- PROFILE HERO -->
+  <div class="profile-hero">
+    <div class="profile-left">
+      <div class="avatar-wrap">
+        <div class="avatar-circle" id="avatarCircle">?</div>
+        <label class="avatar-edit" title="Upload photo">
+          <input type="file" accept="image/*" id="avatarInput" hidden />
+          <span>📷</span>
+        </label>
+      </div>
+      <div class="profile-meta">
+        <div class="profile-name-row">
+          <h1 id="heroName">Complete Your Profile</h1>
+        </div>
+        <p class="profile-sub" id="heroSub">Fill in the steps below to set up your account</p>
+      </div>
+    </div>
+    <div class="progress-info">
+      <span class="progress-label" id="progressLabel">0% complete</span>
+      <div class="mini-bar"><div class="mini-bar-fill" id="miniBarFill"></div></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <nav class="side-nav">
+        <a class="nav-item active" data-section="resume">
+          <span class="nav-icon"></span>
+          <span>Resume</span>
+          <span class="nav-check hidden" id="chk-resume">✓</span>
+        </a>
+        <a class="nav-item" data-section="basic">
+          <span class="nav-icon"></span>
+          <span>Basic Info</span>
+          <span class="nav-check hidden" id="chk-basic">✓</span>
+        </a>
+        <a class="nav-item" data-section="academic">
+          <span class="nav-icon"></span>
+          <span>Academic Info</span>
+          <span class="nav-check hidden" id="chk-academic">✓</span>
+        </a>
+        <a class="nav-item" data-section="additional">
+          <span class="nav-icon"></span>
+          <span>Additional Info</span>
+          <span class="nav-check hidden" id="chk-additional">✓</span>
+        </a>
+        <a class="nav-item" data-section="settings">
+          <span class="nav-icon"></span>
+          <span>Account Settings</span>
+          <span class="nav-check hidden" id="chk-settings">✓</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- ── RESUME ── -->
+      <section class="card section-panel" id="sec-resume">
+        <div class="card-header">
+          <h2>Resume</h2>
+          <span class="step-badge">Step 1 of 5</span>
+        </div>
+        <p class="section-desc">Upload your resume. Supported: PDF, DOC, DOCX (max 5 MB).</p>
+
+        <div class="upload-zone" id="resumeZone">
+          <div class="upload-icon"></div>
+          <p class="upload-title">Drag &amp; drop your resume here</p>
+          <p class="upload-or">or</p>
+          <label class="btn-browse">
+            Browse File
+            <input type="file" accept=".pdf,.doc,.docx" hidden id="resumeFile" onchange="handleResumeUpload(this)" />
+          </label>
+          <p class="upload-hint">PDF, DOC, DOCX up to 5 MB</p>
+        </div>
+
+        <div class="file-preview hidden" id="resumePreview">
+          <div class="file-icon-sm"></div>
+          <div class="file-info">
+            <p class="file-name" id="resumeFileName">—</p>
+            <small id="resumeFileMeta">—</small>
+          </div>
+          <button class="btn-remove" onclick="removeResume()">✕</button>
+        </div>
+
+        <div class="form-actions">
+          <span></span>
+          <button class="btn-save" onclick="completeStep('resume','basic')">Next: Basic Info →</button>
+        </div>
+      </section>
+
+      <!-- ── BASIC INFO ── -->
+      <section class="card section-panel hidden" id="sec-basic">
+        <div class="card-header">
+          <h2>Basic Info</h2>
+          <span class="step-badge">Step 2 of 5</span>
+        </div>
+        <p class="section-desc">Tell us about yourself. Fields marked <span class="req">*</span> are required.</p>
+
+        <form id="basicForm" onsubmit="submitBasic(event)" novalidate>
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Full Name <span class="req">*</span></label>
+              <input type="text" id="b-name" placeholder="e.g. Amit Kumar Yadav" />
+              <span class="err-msg" id="err-b-name"></span>
+            </div>
+            <div class="form-field">
+              <label>Official Email ID</label>
+              <input type="email" id="b-email" placeholder="e.g. 2303@university.ac.in" />
+            </div>
+            <div class="form-field">
+              <label>Official Phone Number <span class="req">*</span></label>
+              <input type="tel" id="b-phone" placeholder="+91 XXXXX XXXXX" maxlength="15" />
+              <span class="err-msg" id="err-b-phone"></span>
+            </div>
+            <div class="form-field">
+              <label>Date of Birth <span class="req">*</span></label>
+              <input type="date" id="b-dob" />
+              <span class="err-msg" id="err-b-dob"></span>
+            </div>
+            <div class="form-field">
+              <label>Gender <span class="req">*</span></label>
+              <select id="b-gender">
+                <option value="">— Select —</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+                <option>Prefer not to say</option>
+              </select>
+              <span class="err-msg" id="err-b-gender"></span>
+            </div>
+            <div class="form-field">
+              <label>Alternate Phone</label>
+              <input type="tel" id="b-altphone" placeholder="+91 XXXXX XXXXX" maxlength="15" />
+            </div>
+            <div class="form-field">
+              <label>Personal Email</label>
+              <input type="email" id="b-personal-email" placeholder="e.g. amit@gmail.com" />
+            </div>
+            <div class="form-field">
+              <label>City / Location</label>
+              <input type="text" id="b-city" placeholder="e.g. Vadodara, Gujarat" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-back" onclick="goPrev('basic','resume')">← Back</button>
+            <button type="submit" class="btn-save">Next: Academic Info →</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ── ACADEMIC INFO ── -->
+      <section class="card section-panel hidden" id="sec-academic">
+        <div class="card-header">
+          <h2>Academic Info</h2>
+          <span class="step-badge">Step 3 of 5</span>
+        </div>
+        <p class="section-desc">Fill in your educational background accurately.</p>
+
+        <form id="academicForm" onsubmit="submitAcademic(event)" novalidate>
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Institute / College Name <span class="req">*</span></label>
+              <input type="text" id="a-institute" placeholder="e.g. Parul Institute of Technology" />
+              <span class="err-msg" id="err-a-institute"></span>
+            </div>
+            <div class="form-field">
+              <label>Batch (Year) <span class="req">*</span></label>
+              <input type="text" id="a-batch" placeholder="e.g. 2023 – 2027" />
+              <span class="err-msg" id="err-a-batch"></span>
+            </div>
+            <div class="form-field">
+              <label>Branch / Stream <span class="req">*</span></label>
+              <input type="text" id="a-branch" placeholder="e.g. Computer Science and Engineering" />
+              <span class="err-msg" id="err-a-branch"></span>
+            </div>
+            <div class="form-field">
+              <label>Degree <span class="req">*</span></label>
+              <select id="a-degree">
+                <option value="">— Select —</option>
+                <option>B.Tech</option>
+                <option>B.E.</option>
+                <option>BCA</option>
+                <option>B.Sc</option>
+                <option>M.Tech</option>
+                <option>MBA</option>
+                <option>MCA</option>
+                <option>Other</option>
+              </select>
+              <span class="err-msg" id="err-a-degree"></span>
+            </div>
+            <div class="form-field">
+              <label>Current Semester</label>
+              <select id="a-sem">
+                <option value="">— Select —</option>
+                <option>1st Semester</option><option>2nd Semester</option>
+                <option>3rd Semester</option><option>4th Semester</option>
+                <option>5th Semester</option><option>6th Semester</option>
+                <option>7th Semester</option><option>8th Semester</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>CGPA / Percentage</label>
+              <input type="text" id="a-cgpa" placeholder="e.g. 8.4 or 84%" />
+            </div>
+            <div class="form-field">
+              <label>10th Percentage <span class="req">*</span></label>
+              <input type="text" id="a-10th" placeholder="e.g. 88.2%" />
+              <span class="err-msg" id="err-a-10th"></span>
+            </div>
+            <div class="form-field">
+              <label>12th Percentage <span class="req">*</span></label>
+              <input type="text" id="a-12th" placeholder="e.g. 82.5%" />
+              <span class="err-msg" id="err-a-12th"></span>
+            </div>
+            <div class="form-field">
+              <label>Active Backlogs</label>
+              <input type="number" id="a-backlogs" placeholder="0" min="0" />
+            </div>
+            <div class="form-field">
+              <label>History of Backlogs</label>
+              <input type="number" id="a-history" placeholder="0" min="0" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-back" onclick="goPrev('academic','basic')">← Back</button>
+            <button type="submit" class="btn-save">Next: Additional Info →</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ── ADDITIONAL INFO ── -->
+      <section class="card section-panel hidden" id="sec-additional">
+        <div class="card-header">
+          <h2>Additional Info</h2>
+          <span class="step-badge">Step 4 of 5</span>
+        </div>
+        <p class="section-desc">Add your links, skills and other details to stand out.</p>
+
+        <form id="additionalForm" onsubmit="submitAdditional(event)" novalidate>
+          <div class="form-grid">
+            <div class="form-field">
+              <label>LinkedIn URL</label>
+              <input type="url" id="ad-linkedin" placeholder="https://linkedin.com/in/yourname" />
+            </div>
+            <div class="form-field">
+              <label>GitHub URL</label>
+              <input type="url" id="ad-github" placeholder="https://github.com/yourname" />
+            </div>
+            <div class="form-field">
+              <label>Portfolio / Website</label>
+              <input type="url" id="ad-portfolio" placeholder="https://yourportfolio.dev" />
+            </div>
+            <div class="form-field">
+              <label>Languages Known</label>
+              <input type="text" id="ad-languages" placeholder="e.g. Hindi, English, Gujarati" />
+            </div>
+            <div class="form-field full-width">
+              <label>Skills <span class="hint">(comma separated)</span></label>
+              <input type="text" id="ad-skills" placeholder="e.g. Python, React, SQL, Git" oninput="previewSkills(this.value)" />
+              <div class="skill-preview" id="skillPreview"></div>
+            </div>
+            <div class="form-field full-width">
+              <label>Certifications</label>
+              <input type="text" id="ad-certs" placeholder="e.g. Google Python Certificate, AWS Cloud Practitioner" />
+            </div>
+            <div class="form-field full-width">
+              <label>Hobbies / Interests</label>
+              <input type="text" id="ad-hobbies" placeholder="e.g. Competitive Programming, Badminton" />
+            </div>
+            <div class="form-field full-width">
+              <label>About Me</label>
+              <textarea id="ad-about" rows="3" placeholder="Write a short bio about yourself…"></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-back" onclick="goPrev('additional','academic')">← Back</button>
+            <a href="/Home/Dashboard/Dashboard.html" type="submit" class="btn-save">Submit →</a>
+          </div>
+        </form>
+      </section>
+
+      <!-- ── ACCOUNT SETTINGS ── -->
+      <section class="card section-panel hidden" id="sec-settings">
+        <div class="card-header">
+          <h2>Account Settings</h2>
+          <span class="step-badge">Step 5 of 5</span>
+        </div>
+        <p class="section-desc">Set a secure password and choose your notification preferences.</p>
+
+        <div class="settings-block">
+          <h3 class="settings-sub"> Set Password</h3>
+          <form class="form-grid" id="passForm" onsubmit="submitPassword(event)" novalidate>
+            <div class="form-field">
+              <label>New Password <span class="req">*</span></label>
+              <div class="input-wrap">
+                <input type="password" id="newPass" placeholder="Min 8 characters" oninput="checkStrength(this.value)" />
+                <button type="button" class="eye-btn" onclick="toggleVis('newPass',this)"></button>
+              </div>
+              <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+              <small class="strength-label" id="strengthLabel"></small>
+              <span class="err-msg" id="err-newPass"></span>
+            </div>
+            <div class="form-field">
+              <label>Confirm Password <span class="req">*</span></label>
+              <div class="input-wrap">
+                <input type="password" id="conPass" placeholder="Repeat your password" />
+                <button type="button" class="eye-btn" onclick="toggleVis('conPass',this)"></button>
+              </div>
+              <span class="err-msg" id="err-conPass"></span>
+            </div>
+            <div class="form-field" style="align-self:flex-end">
+              <button type="submit" class="btn-save" style="width:100%">Save Password</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="settings-block">
+          <h3 class="settings-sub"> Notification Preferences</h3>
+          <div class="toggle-list">
+            <div class="toggle-row">
+              <div><strong>Email Notifications</strong><small>Placement drive alerts via email</small></div>
+              <label class="toggle-switch"><input type="checkbox" checked onchange="toggleNotif(this,'Email')"><span class="slider"></span></label>
+            </div>
+            <div class="toggle-row">
+              <div><strong>SMS Notifications</strong><small>Alerts via SMS</small></div>
+              <label class="toggle-switch"><input type="checkbox" onchange="toggleNotif(this,'SMS')"><span class="slider"></span></label>
+            </div>
+            <div class="toggle-row">
+              <div><strong>Interview Reminders</strong><small>Reminder 24h before interview</small></div>
+              <label class="toggle-switch"><input type="checkbox" checked onchange="toggleNotif(this,'Reminders')"><span class="slider"></span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-back" onclick="goPrev('settings','additional')">← Back</button>
+          <button class="btn-save btn-finish" onclick="finishProfile()">🎉 Complete Profile</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="profile.js"></script>
+</body>
+</html>
