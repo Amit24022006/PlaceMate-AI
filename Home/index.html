@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PlaceMate AI</title>
+  <link rel="stylesheet" href="Style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-place">Place</span><span class="logo-mate">Mate</span><span class="logo-ai"> AI</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <i class="fas fa-th-large"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-page="resume">
+        <i class="fas fa-file-alt"></i>
+        <span>Resume Analyzer</span>
+      </a>
+      <a href="#" class="nav-item" data-page="interview">
+        <i class="fas fa-video"></i>
+        <span>AI Mock Interview</span>
+      </a>
+      <a href="#" class="nav-item" data-page="tests">
+        <i class="fas fa-pen-nib"></i>
+        <span>Tests</span>
+      </a>
+      <a href="#" class="nav-item" data-page="live">
+        <i class="fas fa-satellite-dish"></i>
+        <span>Live Sessions</span>
+      </a>
+      <a href="#" class="nav-item" data-page="notification">
+        <i class="fas fa-bell"></i>
+        <span>Notification</span>
+        <span class="badge">3</span>
+      </a>
+      <a href="#" class="nav-item" data-page="profile">
+        <i class="fas fa-user-circle"></i>
+        <span>Profile</span>
+      </a>
+      <a href="#" class="nav-item" data-page="settings">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">U</div>
+      <div class="user-info">
+        <span class="user-name">Guest</span>
+        <span class="user-status">Not logged in</span>
+      </div>
+      <i class="fas fa-ellipsis-v user-more"></i>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content" id="mainContent">
+
+    <!-- HAMBURGER -->
+    <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+
+    <!-- PAGE: DASHBOARD -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1>Welcome back ! </h1>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-card wide">
+          <div class="stat-icon green"><i class="fas fa-file-alt"></i></div>
+          <div class="stat-body">
+            <span class="stat-label">Resume Score</span>
+            <span class="stat-value">0 <span class="stat-sub">/100</span></span>
+            <span class="stat-action">Upload your resume to start</span>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fas fa-video"></i></div>
+          <div class="stat-body">
+            <span class="stat-label">Mock Interviews</span>
+            <span class="stat-value">0</span>
+            <span class="stat-sub-label">Completed</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red"><i class="fas fa-bullseye"></i></div>
+          <div class="stat-body">
+            <span class="stat-label">Tests Attempted</span>
+            <span class="stat-value">0</span>
+            <span class="stat-sub-label">Tests Completed</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple"><i class="fas fa-check-square"></i></div>
+          <div class="stat-body">
+            <span class="stat-label">ATS Score</span>
+            <span class="stat-value">0</span>
+            <span class="stat-sub-label">Job Match</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Access + Recent Activity -->
+      <div class="dash-grid">
+        <div class="card quick-access">
+          <h2 class="card-title">Quick Access</h2>
+          <div class="qa-grid">
+            <div class="qa-item" data-page="resume">
+              <div class="qa-icon green"><i class="fas fa-file-alt"></i></div>
+              <span class="qa-name">Resume Analyzer</span>
+              <span class="qa-desc">Check ATS Score</span>
+            </div>
+            <div class="qa-item" data-page="interview">
+              <div class="qa-icon blue"><i class="fas fa-video"></i></div>
+              <span class="qa-name">AI Mock Interview</span>
+              <span class="qa-desc">Practice Now</span>
+            </div>
+            <div class="qa-item" data-page="tests">
+              <div class="qa-icon orange"><i class="fas fa-pencil-alt"></i></div>
+              <span class="qa-name">Take a Test</span>
+              <span class="qa-desc">Technical + Aptitude + More</span>
+            </div>
+            <div class="qa-item" data-page="live">
+              <div class="qa-icon teal"><i class="fas fa-satellite-dish"></i></div>
+              <span class="qa-name">Live Session</span>
+              <span class="qa-desc">Join Now</span>
+            </div>
+            <div class="qa-item" data-page="notification">
+              <div class="qa-icon indigo"><i class="fas fa-comment-dots"></i></div>
+              <span class="qa-name">AI Chatbox</span>
+              <span class="qa-desc">Chat Now</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card recent-activity">
+          <div class="card-header-row">
+            <h2 class="card-title">Recent Activity</h2>
+            <a href="#" class="view-all">View All →</a>
+          </div>
+          <div class="empty-state">
+            <i class="fas fa-rocket empty-icon"></i>
+            <p>No recent activity yet. Start practicing! 🚀</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Sessions -->
+      <div class="card live-sessions-card">
+        <div class="card-header-row">
+          <h2 class="card-title">🎯 Live Sessions</h2>
+          <a href="#" class="view-all" data-page="live">View All →</a>
+        </div>
+        <div class="live-session-list">
+          <div class="live-session-item">
+            <div class="ls-avatar ls-blue">JS</div>
+            <div class="ls-info">
+              <span class="ls-title">JavaScript Fundamentals</span>
+              <span class="ls-time"><i class="fas fa-clock"></i> Today, 4:00 PM</span>
+            </div>
+            <span class="ls-badge live">LIVE</span>
+            <button class="btn-join">Join</button>
+          </div>
+          <div class="live-session-item">
+            <div class="ls-avatar ls-purple">DS</div>
+            <div class="ls-info">
+              <span class="ls-title">Data Structures & Algorithms</span>
+              <span class="ls-time"><i class="fas fa-clock"></i> Tomorrow, 10:00 AM</span>
+            </div>
+            <span class="ls-badge upcoming">Upcoming</span>
+            <button class="btn-join secondary">Remind</button>
+          </div>
+          <div class="live-session-item">
+            <div class="ls-avatar ls-green">SY</div>
+            <div class="ls-info">
+              <span class="ls-title">System Design Interview Prep</span>
+              <span class="ls-time"><i class="fas fa-clock"></i> Jun 10, 2:00 PM</span>
+            </div>
+            <span class="ls-badge upcoming">Upcoming</span>
+            <button class="btn-join secondary">Remind</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE: RESUME ANALYZER -->
+    <section class="page" id="page-resume">
+      <div class="page-header">
+        <h1>Resume Analyzer </h1>
+        <p>Upload your resume to get an ATS score and detailed feedback</p>
+      </div>
+      <div class="resume-layout">
+        <div class="card upload-card">
+          <h2 class="card-title">Upload Resume</h2>
+          <div class="upload-zone" id="uploadZone">
+            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+            <p>Drag & Drop your resume here</p>
+            <span>or</span>
+            <label class="btn-primary upload-btn">
+              Browse File
+              <input type="file" accept=".pdf,.doc,.docx" id="resumeFile" hidden/>
+            </label>
+            <small>Supports PDF, DOC, DOCX (Max 5MB)</small>
+          </div>
+          <div class="uploaded-file hidden" id="uploadedFile">
+            <i class="fas fa-file-pdf file-icon"></i>
+            <span id="fileName">resume.pdf</span>
+            <button class="remove-file" id="removeFile"><i class="fas fa-times"></i></button>
+          </div>
+          <button class="btn-primary full-width" id="analyzeBtn" disabled>Analyze Resume</button>
+        </div>
+
+        <div class="card score-card" id="scoreCard">
+          <h2 class="card-title">ATS Score</h2>
+          <div class="score-circle-wrap">
+            <svg class="score-svg" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#e8e9f3" stroke-width="10"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="url(#scoreGrad)" stroke-width="10"
+                stroke-dasharray="314" stroke-dashoffset="314" stroke-linecap="round"
+                transform="rotate(-90 60 60)" id="scoreCircle"/>
+              <defs>
+                <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#6c63ff"/>
+                  <stop offset="100%" stop-color="#48cfad"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="score-number" id="scoreNumber">0</div>
+          </div>
+          <div class="score-sections" id="scoreSections">
+            <div class="score-section">
+              <span>Keywords Match</span><span class="score-pct" id="kwScore">—</span>
+            </div>
+            <div class="score-section">
+              <span>Formatting</span><span class="score-pct" id="fmtScore">—</span>
+            </div>
+            <div class="score-section">
+              <span>Skills Match</span><span class="score-pct" id="skillScore">—</span>
+            </div>
+            <div class="score-section">
+              <span>Experience</span><span class="score-pct" id="expScore">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card feedback-card" id="feedbackCard">
+          <h2 class="card-title">Feedback & Suggestions</h2>
+          <div class="feedback-empty" id="feedbackEmpty">
+            <i class="fas fa-lightbulb"></i>
+            <p>Upload and analyze your resume to see detailed feedback</p>
+          </div>
+          <div class="feedback-list hidden" id="feedbackList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE: AI MOCK INTERVIEW -->
+    <section class="page" id="page-interview">
+      <div class="page-header">
+        <h1>AI Mock Interview </h1>
+        <p>Practice interviews with AI and get instant feedback</p>
+      </div>
+      <div class="interview-layout">
+        <div class="card interview-setup">
+          <h2 class="card-title">Setup Interview</h2>
+          <div class="form-group">
+            <label>Job Role</label>
+            <select class="form-select" id="jobRole">
+              <option value="">Select a role...</option>
+              <option>Software Engineer</option>
+              <option>Frontend Developer</option>
+              <option>Backend Developer</option>
+              <option>Full Stack Developer</option>
+              <option>Data Scientist</option>
+              <option>Product Manager</option>
+              <option>UI/UX Designer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Experience Level</label>
+            <div class="radio-group">
+              <label class="radio-item"><input type="radio" name="exp" value="fresher" checked/> Fresher</label>
+              <label class="radio-item"><input type="radio" name="exp" value="junior"/> Junior (1–2 yrs)</label>
+              <label class="radio-item"><input type="radio" name="exp" value="mid"/> Mid (3–5 yrs)</label>
+              <label class="radio-item"><input type="radio" name="exp" value="senior"/> Senior (5+ yrs)</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Interview Type</label>
+            <div class="type-grid">
+              <div class="type-item active" data-type="technical"><i class="fas fa-code"></i> Technical</div>
+              <div class="type-item" data-type="hr"><i class="fas fa-users"></i> HR</div>
+              <div class="type-item" data-type="behavioral"><i class="fas fa-brain"></i> Behavioral</div>
+              <div class="type-item" data-type="system"><i class="fas fa-network-wired"></i> System Design</div>
+            </div>
+          </div>
+          <button class="btn-primary full-width" id="startInterview">Start Interview</button>
+        </div>
+
+        <div class="card interview-arena hidden" id="interviewArena">
+          <div class="arena-header">
+            <span class="arena-role" id="arenaRole">Software Engineer</span>
+            <span class="arena-timer" id="arenaTimer">00:00</span>
+            <button class="btn-end" id="endInterview">End</button>
+          </div>
+          <div class="question-box">
+            <span class="q-number" id="qNumber">Q1 / 5</span>
+            <p class="q-text" id="qText">Loading question...</p>
+          </div>
+          <textarea class="answer-box" id="answerBox" placeholder="Type your answer here..."></textarea>
+          <div class="arena-actions">
+            <button class="btn-secondary" id="skipQ">Skip</button>
+            <button class="btn-primary" id="submitAnswer">Submit Answer</button>
+          </div>
+          <div class="feedback-inline hidden" id="inlineFeedback">
+            <h4><i class="fas fa-robot"></i> AI Feedback</h4>
+            <p id="feedbackText"></p>
+            <div class="score-bar-wrap">
+              <span>Score:</span>
+              <div class="score-bar-bg"><div class="score-bar-fill" id="fbScoreBar"></div></div>
+              <span id="fbScoreNum">0/10</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card past-interviews">
+          <div class="card-header-row">
+            <h2 class="card-title">Past Interviews</h2>
+          </div>
+          <div class="empty-state">
+            <i class="fas fa-history empty-icon"></i>
+            <p>No interviews yet. Start your first one!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE: TESTS -->
+    <section class="page" id="page-tests">
+      <div class="page-header">
+        <h1>Tests </h1>
+        <p>Sharpen your skills with topic-based tests</p>
+      </div>
+      <div class="tests-layout">
+        <div class="test-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="technical">Technical</button>
+          <button class="filter-btn" data-filter="aptitude">Aptitude</button>
+          <button class="filter-btn" data-filter="verbal">Verbal</button>
+          <button class="filter-btn" data-filter="coding">Coding</button>
+        </div>
+        <div class="tests-grid" id="testsGrid">
+          <!-- dynamically filled by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE: LIVE SESSIONS -->
+    <section class="page" id="page-live">
+      <div class="page-header">
+        <h1>Live Sessions </h1>
+        <p>Join expert-led live sessions and workshops</p>
+      </div>
+      <div class="live-grid" id="liveGrid">
+        <!-- dynamically filled -->
+      </div>
+    </section>
+
+    <!-- PAGE: NOTIFICATION -->
+    <section class="page" id="page-notification">
+      <div class="page-header">
+        <h1>Notifications </h1>
+        <p>Stay up to date with your activity</p>
+      </div>
+      <div class="card notif-card">
+        <div class="notif-toolbar">
+          <button class="btn-text" id="markAllRead">Mark all as read</button>
+          <button class="btn-text danger" id="clearAll">Clear all</button>
+        </div>
+        <div class="notif-list" id="notifList">
+          <!-- dynamic -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE: PROFILE -->
+    <section class="page" id="page-profile">
+      <div class="page-header">
+        <h1>Profile </h1>
+        <p>Manage your personal information</p>
+      </div>
+      <div class="profile-layout">
+        <div class="card profile-card">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" id="profileAvatar">U</div>
+            <button class="change-avatar-btn"><i class="fas fa-camera"></i></button>
+          </div>
+          <div class="profile-badge">Guest User</div>
+          <div class="profile-stats">
+            <div class="ps-item"><span class="ps-val" id="ps-interviews">0</span><span class="ps-label">Interviews</span></div>
+            <div class="ps-item"><span class="ps-val" id="ps-tests">0</span><span class="ps-label">Tests</span></div>
+            <div class="ps-item"><span class="ps-val" id="ps-score">0</span><span class="ps-label">Best Score</span></div>
+          </div>
+        </div>
+        <div class="card profile-form-card">
+          <h2 class="card-title">Personal Information</h2>
+          <div class="form-row">
+            <div class="form-group"><label>Full Name</label><input type="text" class="form-input" placeholder="John" id="firstName"/></div>
+            <div class="form-group"><label>Phone</label><input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX" id="phoneInput"/></div>
+             <div class="form-group">
+        <label>Gender</label>
+        <select class="form-input" id="gender">
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+    </div>
+          <div class="form-group"><label>Alternate Phone</label><input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX" id="phoneInput"/></div>
+           <div class="form-group"><label>Target Role</label><input type="text" class="form-input" placeholder="Software Engineer" id="targetRole"/></div>
+           <div class="form-group">
+        <label>Location</label>
+        <input type="text" class="form-input" id="city">
+    </div>
+     <div class="form-group">
+        <label>City</label>
+        <input type="text" class="form-input" id="city">
+    </div> <div class="form-group">
+        <label>State</label>
+        <input type="text" class="form-input" id="city">
+    </div>
+    <div class="form-group"><label>Email</label><input type="email" class="form-input" placeholder="john@example.com" id="emailInput"/></div>
+    </div>
+
+          <h2 class="card-title">Academic Info</h2> 
+          <div class="form-row">
+
+              <div class="form-group">
+        <label>Institute / College Name</label>
+        <input type="text" class="form-input" id="college">
+    </div>
+
+    <div class="form-group">
+        <label>Batch (Year)</label>
+        <input type="number" class="form-input" id="batch">
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Branch / Stream</label>
+        <input type="text" class="form-input" id="branch">
+    </div>
+
+    <div class="form-group">
+        <label>Degree</label>
+        <input type="text" class="form-input" id="degree">
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Current Semester</label>
+        <input type="number" class="form-input" id="semester">
+    </div>
+
+    <div class="form-group">
+        <label>CGPA / Percentage</label>
+        <input type="text" class="form-input" id="cgpa">
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>10th Percentage</label>
+        <input type="text" class="form-input" id="tenthPercentage">
+    </div>
+
+    <div class="form-group">
+        <label>12th Percentage</label>
+        <input type="text" class="form-input" id="twelfthPercentage">
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Active Backlogs</label>
+        <input type="number" class="form-input" id="activeBacklogs">
+    </div>
+
+    <div class="form-group">
+        <label>History of Backlogs</label>
+        <input type="text" class="form-input" id="historyBacklogs">
+    </div>
+
+
+    <h2 class="card-title">Additional Info</h2>   
+</div>     
+    <div class="form-row">
+     <div class="form-group">
+
+        <label>LinkedIn URL</label>
+        <input type="url" class="form-input" id="linkedin">
+    </div>
+
+    <div class="form-group">
+        <label>GitHub URL</label>
+        <input type="url" class="form-input" id="github">
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Portfolio / Website</label>
+    <input type="url" class="form-input" id="portfolio">
+</div>
+
+<div class="form-group">
+    <label>Languages Known</label>
+    <input type="text" class="form-input" id="languages">
+</div>
+
+<div class="form-group">
+    <label>Skills</label>
+    <input type="text" class="form-input" id="skills">
+</div>
+
+<div class="form-group">
+    <label>Hobbies / Interests</label>
+    <input type="text" class="form-input" id="hobbies">
+</div>
+
+<div class="form-group">
+    <label>Certifications</label>
+    <textarea class="form-input" id="certifications" rows="3"></textarea>
+</div>
+
+ <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-input" id="password" placeholder="Enter Password">
+    </div>
+
+    <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm Password">
+    </div>
+    
+          <!-- </div> -->
+          <button class="btn-primary" id="saveProfile">Save Changes</button>
+          <div class="save-msg hidden" id="saveMsg"><i class="fas fa-check-circle"></i> Profile saved!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE: SETTINGS -->
+    <section class="page" id="page-settings">
+      <div class="page-header">
+        <h1>Settings </h1>
+        <p>Customize your PlaceMate AI experience</p>
+      </div>
+      <div class="settings-layout">
+        <div class="card settings-section">
+          <h2 class="card-title">Appearance</h2>
+          <div class="setting-item">
+            <div class="setting-label">
+              <span>Dark Mode</span>
+              <small>Switch between light and dark theme</small>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="darkModeToggle"/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label">
+              <span>Compact Sidebar</span>
+              <small>Show icons only in sidebar</small>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="compactSidebar"/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="card settings-section">
+          <h2 class="card-title">Notifications</h2>
+          <div class="setting-item">
+            <div class="setting-label"><span>Email Notifications</span><small>Get updates via email</small></div>
+            <label class="toggle-switch"><input type="checkbox" id="emailNotif" checked/><span class="toggle-slider"></span></label>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label"><span>Live Session Reminders</span><small>Notify before sessions start</small></div>
+            <label class="toggle-switch"><input type="checkbox" id="sessionReminder" checked/><span class="toggle-slider"></span></label>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label"><span>Interview Results</span><small>Notify when results are ready</small></div>
+            <label class="toggle-switch"><input type="checkbox" id="interviewNotif" checked/><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+        <div class="card settings-section">
+          <h2 class="card-title">Account</h2>
+          <div class="setting-item">
+            <div class="setting-label"><span>Language</span><small>Choose your preferred language</small></div>
+            <select class="form-select mini"><option>English</option><option>Hindi</option><option>Tamil</option></select>
+          </div>
+          <div class="account-actions">
+            <button class="btn-primary">Log Out</button>
+            <button class="btn-danger">Delete Account</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CHAT FAB -->
+  <button class="chat-fab" id="chatFab"><i class="fas fa-comment-dots"></i></button>
+
+  <!-- CHAT MODAL -->
+  <div class="chat-modal hidden" id="chatModal">
+    <div class="chat-header">
+      <span><i class="fas fa-robot"></i> AI Chatbox</span>
+      <button class="chat-close" id="chatClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">Hi! I'm PlaceMate AI. Ask me anything about interviews, resume tips, or career advice! 🚀</div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..."/>
+      <button class="chat-send" id="chatSend"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <script src="Script.js"></script>
+</body>
+</html>

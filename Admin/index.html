@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Panel · PlaceMate AI</title>
+<meta name="description" content="PlaceMate AI Admin — manage subjects, create exam questions, post live session links, and generate shareable exam URLs."/>
+<link rel="stylesheet" href="style.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=DM+Sans:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── Inline overrides / extra specifics ────── */
+.admin-wrap {
+  position:relative; z-index:1;
+  padding:2rem clamp(1rem,4vw,2.5rem) 4rem;
+  max-width:1200px; margin:0 auto;
+}
+.page-hero { margin-bottom:2rem; }
+.page-hero h1 {
+  font-family:var(--font-display); font-size:clamp(1.6rem,3vw,2.1rem);
+  font-weight:900; letter-spacing:-.03em; line-height:1.15;
+}
+.page-hero p { color:var(--text-secondary); font-size:14px; margin-top:5px; }
+
+/* hero gradient text */
+.page-hero h1 span {
+  background: linear-gradient(135deg,var(--accent-blue),var(--accent-purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="bg-canvas">
+  <div class="bg-orb bg-orb--1"></div>
+  <div class="bg-orb bg-orb--2"></div>
+  <div class="bg-orb bg-orb--3"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <a class="navbar__brand" href="../index.html">
+    <span class="navbar__logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect width="28" height="28" rx="8" fill="var(--accent-blue)" opacity=".15"/>
+        <path d="M7 14L12 19L21 9" stroke="var(--accent-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="navbar__wordmark">PlaceMate <em>Admin</em></span>
+  </a>
+  <div class="navbar__links">
+    <a href="../index.html" class="nav-pill">← Home</a>
+    <a href="index.html"    class="nav-pill nav-pill--active">Admin Panel</a>
+  </div>
+  <div class="navbar__actions">
+    <button class="btn btn--ghost btn--sm" onclick="toggleTheme()" title="Toggle theme">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="2" x2="12" y2="4"/>
+        <line x1="12" y1="20" x2="12" y2="22"/>
+        <line x1="2" y1="12" x2="4" y2="12"/>
+        <line x1="20" y1="12" x2="22" y2="12"/>
+      </svg>
+      Theme
+    </button>
+  </div>
+</nav>
+
+<div class="admin-wrap">
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <h1>Admin Panel <span>🛠️</span></h1>
+    <p>Post live session links · Create exam questions · Generate shareable exam URLs — all in one place</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stat-strip">
+    <div class="stat-chip">
+      <div class="stat-chip__icon" style="background:var(--blue-wash)">📚</div>
+      <div><div class="stat-chip__val" id="statSubjects">0</div><div class="stat-chip__lbl">Subjects</div></div>
+    </div>
+    <div class="stat-chip">
+      <div class="stat-chip__icon" style="background:var(--purple-wash)">❓</div>
+      <div><div class="stat-chip__val" id="statQuestions">0</div><div class="stat-chip__lbl">Questions</div></div>
+    </div>
+    <div class="stat-chip">
+      <div class="stat-chip__icon" style="background:var(--teal-wash)">📡</div>
+      <div><div class="stat-chip__val" id="statSessions">0</div><div class="stat-chip__lbl">Live Sessions</div></div>
+    </div>
+    <div class="stat-chip">
+      <div class="stat-chip__icon" style="background:var(--coral-wash)">📝</div>
+      <div><div class="stat-chip__val" id="statExams">0</div><div class="stat-chip__lbl">Exams Created</div></div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tab-bar">
+    <button class="tab-btn active"  id="tbSubjects"  onclick="switchTab('subjects',this)">📚 Subjects</button>
+    <button class="tab-btn"         id="tbQuestions" onclick="switchTab('questions',this)">❓ Questions</button>
+    <button class="tab-btn"         id="tbLive"      onclick="switchTab('live',this)">📡 Live Sessions</button>
+    <button class="tab-btn"         id="tbExams"     onclick="switchTab('exams',this)">🔗 Exam Links</button>
+    <button class="tab-btn"         id="tbResults"   onclick="switchTab('results',this)">📊 Results</button>
+  </div>
+
+  <!-- ════════════ TAB: SUBJECTS ════════════ -->
+  <div id="tab-subjects" class="tab-pane active">
+    <div class="two-col">
+
+      <!-- Add Subject Form -->
+      <div class="card sticky-form">
+        <div class="card__top">
+          <div class="card__icon-wrap card__icon-wrap--blue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div><div class="card__title">Add New Subject</div><div class="card__caption">Create a custom subject category</div></div>
+        </div>
+        <div class="form-group"><label class="form-label">Subject Name</label><input type="text" id="newSubjectName" class="form-input" placeholder="e.g. Data Structures"/></div>
+        <div class="form-group"><label class="form-label">Description</label><input type="text" id="newSubjectDesc" class="form-input" placeholder="Short description..."/></div>
+        <div class="form-group"><label class="form-label">Icon (emoji)</label><input type="text" id="newSubjectIcon" class="form-input" placeholder="e.g. 🧮" maxlength="4"/></div>
+        <div class="form-group">
+          <label class="form-label">Color Theme</label>
+          <select id="newSubjectColor" class="form-input">
+            <option value="blue">🔵 Blue</option>
+            <option value="teal">🟢 Teal</option>
+            <option value="coral">🟠 Coral</option>
+            <option value="purple">🟣 Purple</option>
+            <option value="amber">🟡 Amber</option>
+          </select>
+        </div>
+        <button class="btn btn--primary btn--full" onclick="addSubject()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Subject
+        </button>
+      </div>
+
+      <!-- Subject List -->
+      <div>
+        <div class="section-hdr"><h3>All Subjects</h3><span id="subjectCount" class="badge badge--blue">0</span></div>
+        <div class="scroll-list" id="adminSubjectList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ TAB: QUESTIONS ════════════ -->
+  <div id="tab-questions" class="tab-pane">
+    <div class="two-col" style="grid-template-columns:340px 1fr;">
+
+      <!-- Add Question Form -->
+      <div class="card sticky-form">
+        <div class="card__top">
+          <div class="card__icon-wrap card__icon-wrap--purple">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div><div class="card__title">Add Question</div><div class="card__caption">Add to any subject &amp; section</div></div>
+        </div>
+        <div class="form-group"><label class="form-label">Subject</label><select id="qSubject" class="form-input" onchange="filterQList()"></select></div>
+        <div class="form-group">
+          <label class="form-label">Section</label>
+          <select id="qSection" class="form-input" onchange="toggleOptions()">
+            <option value="A">Section A — Multiple Choice</option>
+            <option value="B">Section B — Short Answer</option>
+            <option value="C">Section C — Long Answer</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Question Text</label><textarea id="qText" class="form-input" rows="3" placeholder="Type your question here..."></textarea></div>
+        <div id="optionsArea">
+          <div class="form-group">
+            <label class="form-label">Options (A–D)</label>
+            <input type="text" id="qOpt1" class="form-input" placeholder="Option A" style="margin-bottom:6px;"/>
+            <input type="text" id="qOpt2" class="form-input" placeholder="Option B" style="margin-bottom:6px;"/>
+            <input type="text" id="qOpt3" class="form-input" placeholder="Option C" style="margin-bottom:6px;"/>
+            <input type="text" id="qOpt4" class="form-input" placeholder="Option D"/>
+          </div>
+          <div class="form-group"><label class="form-label">Correct Answer</label>
+            <select id="qCorrect" class="form-input"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">Marks</label><input type="number" id="qMarks" class="form-input" value="1" min="1" max="20"/></div>
+        <button class="btn btn--primary btn--full" onclick="addQuestion()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Question
+        </button>
+      </div>
+
+      <!-- Questions List -->
+      <div>
+        <div class="section-hdr">
+          <h3>Question Bank</h3>
+          <select id="filterSubject" class="form-input" style="width:180px;padding:5px 10px;" onchange="filterQList()">
+            <option value="all">All Subjects</option>
+          </select>
+        </div>
+        <div class="scroll-list" id="questionsBySubject" style="max-height:620px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ TAB: LIVE SESSIONS ════════════ -->
+  <div id="tab-live" class="tab-pane">
+    <div class="two-col" style="grid-template-columns:360px 1fr;">
+
+      <!-- Add Live Session Form -->
+      <div class="card sticky-form">
+        <div class="card__top">
+          <div class="card__icon-wrap card__icon-wrap--teal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          </div>
+          <div><div class="card__title">Post Live Session</div><div class="card__caption">Paste a meeting link to share with students</div></div>
+        </div>
+
+        <div class="form-group"><label class="form-label">Session Title</label><input type="text" id="lsTitle" class="form-input" placeholder="e.g. JavaScript Fundamentals – Batch A"/></div>
+        <div class="form-group"><label class="form-label">Host / Instructor</label><input type="text" id="lsHost" class="form-input" placeholder="e.g. Priya Sharma"/></div>
+        <div class="form-group">
+          <label class="form-label">Platform</label>
+          <select id="lsPlatform" class="form-input">
+            <option value="Google Meet">🎥 Google Meet</option>
+            <option value="Zoom">💻 Zoom</option>
+            <option value="Microsoft Teams">💼 Microsoft Teams</option>
+            <option value="YouTube Live">▶️ YouTube Live</option>
+            <option value="Other">🔗 Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">🔗 Meeting / Stream Link</label><input type="url" id="lsLink" class="form-input" placeholder="https://meet.google.com/xxx-xxxx-xxx"/></div>
+        <div class="form-group"><label class="form-label">Scheduled Date &amp; Time</label><input type="datetime-local" id="lsDateTime" class="form-input"/></div>
+        <div class="form-group"><label class="form-label">Duration (minutes)</label><input type="number" id="lsDuration" class="form-input" value="60" min="15" max="300"/></div>
+        <div class="form-group"><label class="form-label">Topic / Description</label><textarea id="lsDesc" class="form-input" rows="2" placeholder="Brief description of what will be covered..."></textarea></div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <div class="radio-row">
+            <label class="radio-chip checked" id="chip-upcoming"><input type="radio" name="lsStatus" value="upcoming" checked onchange="updateChips()"/> ⏰ Upcoming</label>
+            <label class="radio-chip"          id="chip-live"    ><input type="radio" name="lsStatus" value="live"     onchange="updateChips()"/> <span class="pulse-dot"></span>Live Now</label>
+            <label class="radio-chip"          id="chip-completed"><input type="radio" name="lsStatus" value="completed" onchange="updateChips()"/> ✅ Done</label>
+          </div>
+        </div>
+        <button class="btn btn--teal btn--full" onclick="addLiveSession()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Save &amp; Share Session
+        </button>
+      </div>
+
+      <!-- Sessions List -->
+      <div>
+        <div class="section-hdr">
+          <h3>All Live Sessions</h3>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn--ghost btn--sm btn--primary" onclick="filterSessions('all')"      id="sf-all">All</button>
+            <button class="btn btn--ghost btn--sm"              onclick="filterSessions('live')"     id="sf-live">🔴 Live</button>
+            <button class="btn btn--ghost btn--sm"              onclick="filterSessions('upcoming')" id="sf-upcoming">⏰ Upcoming</button>
+            <button class="btn btn--ghost btn--sm"              onclick="filterSessions('completed')"id="sf-completed">✅ Done</button>
+          </div>
+        </div>
+        <div class="scroll-list" id="sessionList" style="max-height:640px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ TAB: EXAM LINKS ════════════ -->
+  <div id="tab-exams" class="tab-pane">
+    <div class="two-col" style="grid-template-columns:370px 1fr;">
+
+      <!-- Create Exam Form -->
+      <div class="card sticky-form">
+        <div class="card__top">
+          <div class="card__icon-wrap card__icon-wrap--coral">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </div>
+          <div><div class="card__title">Create Exam</div><div class="card__caption">Create questions &amp; generate a shareable link</div></div>
+        </div>
+        <div class="form-group"><label class="form-label">Exam Title</label><input type="text" id="examTitle" class="form-input" placeholder="e.g. Technical Round — Batch 2025"/></div>
+        <div class="form-group"><label class="form-label">Subject</label><select id="examSubject" class="form-input"></select></div>
+        <div class="form-group"><label class="form-label">Duration (minutes)</label><input type="number" id="examDuration" class="form-input" value="60" min="5" max="300"/></div>
+        <div class="form-group"><label class="form-label">Paste External Exam Link (optional)</label><input type="url" id="examLink" class="form-input" placeholder="https://forms.google.com/... or any URL"/></div>
+        <div class="form-group"><label class="form-label">Instructions (optional)</label><textarea id="examInstructions" class="form-input" rows="2" placeholder="e.g. Read all questions carefully..."></textarea></div>
+        <div class="form-group" style="display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" id="examShowResult" checked style="accent-color:var(--accent-blue);width:15px;height:15px;"/>
+          <label for="examShowResult" style="font-size:13px;font-weight:600;cursor:pointer;">Show results immediately after exam</label>
+        </div>
+        <button class="btn btn--coral btn--full" onclick="createExamLink()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Generate &amp; Copy Link
+        </button>
+
+        <!-- Generated link preview -->
+        <div id="linkPreview" style="display:none;margin-top:1rem;">
+          <div style="font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-secondary);margin-bottom:6px;">✅ Generated Link</div>
+          <div class="link-box">
+            <input type="text" id="generatedLinkInput" readonly/>
+            <button class="btn btn--ghost btn--sm" onclick="copyLink()">Copy</button>
+            <button class="btn btn--primary btn--sm" onclick="openLink()">Open</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exam List -->
+      <div>
+        <div class="section-hdr"><h3>Created Exams</h3><span id="examCountBadge" class="badge badge--coral">0 exams</span></div>
+        <div class="scroll-list" id="examList" style="max-height:640px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ TAB: RESULTS ════════════ -->
+  <div id="tab-results" class="tab-pane">
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="padding:1.2rem 1.5rem;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+        <h3 style="font-family:var(--font-display);font-weight:800;">📊 All Exam Results</h3>
+        <div style="display:flex;gap:6px;">
+          <input type="text" id="resultSearch" class="form-input" style="width:200px;padding:6px 11px;" placeholder="Search by name..." oninput="filterResults()"/>
+          <button class="btn btn--danger btn--sm" onclick="clearAllResults()">Clear All</button>
+        </div>
+      </div>
+      <div id="resultsContainer" style="padding:1rem 1.5rem;"></div>
+    </div>
+  </div>
+  
+
+</div><!-- /admin-wrap -->
+
+<!-- TOAST -->
+<div id="toast" class="toast"><span class="toast__icon" id="toastIcon">✅</span><span id="toastMsg">Done!</span></div>
+
+<script src="data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
